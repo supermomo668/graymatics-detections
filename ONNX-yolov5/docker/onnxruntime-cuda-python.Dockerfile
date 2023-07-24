@@ -8,20 +8,20 @@ ARG ONNXRUNTIME_VERSION=1.12.0
 ENV DEBIAN_FRONTEND noninteractive
 ARG OPENCV_VERSION
 
-RUN apt update && apt upgrade -y && apt install -y build-essential cmake git unzip pkg-config && \
-  libjpeg-dev libpng-dev libtiff-dev && \
-  libavcodec-dev libavformat-dev libswscale-dev && \
-  libgtk2.0-dev libcanberra-gtk* && \
-  python3-dev python3-numpy python3-pip && \
-  libxvidcore-dev libx264-dev libgtk-3-dev && \
-  libtbb2 libtbb-dev libdc1394-22-dev && \
-  libv4l-dev v4l-utils && \
-  libavresample-dev libvorbis-dev libxine2-dev && \
-  libfaac-dev libmp3lame-dev libtheora-dev && \
-  libopencore-amrnb-dev libopencore-amrwb-dev && \
-  libopenblas-dev libatlas-base-dev libblas-dev && \
-  liblapack-dev libeigen3-dev gfortran && \
-  libhdf5-dev protobuf-compiler && \
+RUN apt update && apt upgrade -y && apt install -y build-essential cmake git unzip pkg-config \
+  libjpeg-dev libpng-dev libtiff-dev wget \
+  libavcodec-dev libavformat-dev libswscale-dev \
+  libgtk2.0-dev libcanberra-gtk* \
+  python3-dev python3-numpy python3-pip \
+  libxvidcore-dev libx264-dev libgtk-3-dev \
+  libtbb2 libtbb-dev libdc1394-22-dev \
+  libv4l-dev v4l-utils \
+  libavresample-dev libvorbis-dev libxine2-dev \
+  libfaac-dev libmp3lame-dev libtheora-dev \
+  libopencore-amrnb-dev libopencore-amrwb-dev \
+  libopenblas-dev libatlas-base-dev libblas-dev  \
+  liblapack-dev libeigen3-dev gfortran  \
+  libhdf5-dev protobuf-compiler  \
   libprotobuf-dev libgoogle-glog-dev libgflags-dev 
 
 RUN cd ~ && wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && unzip opencv.zipp && mv opencv-$OPENCV_VERSION opencv && rm opencv.zip
