@@ -1,12 +1,13 @@
 ARG OPENCV_VERSION 4.5.2
-# sources: https://viking-drone.com/wiki/installing-opencv-4-5-2/
-
+# opencv: https://viking-drone.com/wiki/installing-opencv-4-5-2/
+#          https://gist.github.com/raulqf/f42c718a658cddc16f9df07ecc627be7
+# onnx: https://github.com/leimao/ONNX-Runtime-Inference
 FROM nvcr.io/nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04 AS builder-opencv-base
 
 ARG ONNXRUNTIME_VERSION=1.12.0
 
-ENV DEBIAN_FRONTEND noninteractive
-ARG OPENCV_VERSION
+ENV DEBIAN_FRONTEND noninteractiveN
+ENV OPENCV_VERSION OPENCV_VERSION
 
 RUN apt update && apt upgrade -y && apt install -y build-essential cmake git unzip wget pkg-config \
   libjpeg-dev libpng-dev libtiff-dev \
@@ -24,7 +25,7 @@ RUN apt update && apt upgrade -y && apt install -y build-essential cmake git unz
   libhdf5-dev protobuf-compiler  \
   libprotobuf-dev libgoogle-glog-dev libgflags-dev 
 
-RUN cd ~ && wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && unzip opencv.zi && mv opencv-$OPENCV_VERSION opencv && rm opencv.zip
+RUN cd ~ && wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && unzip opencv.zip && mv opencv-$OPENCV_VERSION opencv && rm opencv.zip
 
 FROM builder-opencv-base as builder-opencv-build
 
