@@ -10,7 +10,6 @@ Deploy ultralytics [Yolov5](https://github.com/ultralytics/yolov5.git) pretained
 
 
 ## Env
-
 1. GCC 7.5
 2. Opencv 4.5.4
 
