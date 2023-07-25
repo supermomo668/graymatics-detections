@@ -1,4 +1,4 @@
-ARG OPENCV_VERSION 4.5.2
+ARG OPENCV_VERSION=4.5.2
 # opencv: https://viking-drone.com/wiki/installing-opencv-4-5-2/
 #          https://gist.github.com/raulqf/f42c718a658cddc16f9df07ecc627be7
 # onnx: https://github.com/leimao/ONNX-Runtime-Inference
@@ -7,7 +7,7 @@ FROM nvcr.io/nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04 AS builder-opencv-base
 ARG ONNXRUNTIME_VERSION=1.12.0
 
 ENV DEBIAN_FRONTEND noninteractiveN
-ENV OPENCV_VERSION OPENCV_VERSION
+ARG OPENCV_VERSION
 
 RUN apt update && apt upgrade -y && apt install -y build-essential cmake git unzip wget pkg-config \
   libjpeg-dev libpng-dev libtiff-dev \
@@ -34,7 +34,7 @@ RUN cd ~/opencv && mkdir build && cd build && \
   
 RUN make -j$(nproc) && make install && ldconfig && make clean && rm -rf ~/opencv
 
-FROM builder-opencv-build AS builder-onnx
+FROM builder-opencv AS builder-onnx
 
 # Install package dependencies
 RUN apt update && apt install -y --no-install-recommends \

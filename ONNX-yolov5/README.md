@@ -7,15 +7,13 @@ Deploy ultralytics [Yolov5](https://github.com/ultralytics/yolov5.git) pretained
 </div>
 
 
-
-
 ## Env
 1. GCC 7.5
 2. Opencv 4.5.4
 
 ## Docker Build
 ```
-docker build -f docker\onnxruntime-cuda-python.Dockerfile -t onnx-yolo5 .
+docker build -f docker\dockerfile -t onnx-yolo5 .
 ```
 
 ### Build performed in docker
