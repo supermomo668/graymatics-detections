@@ -1,11 +1,12 @@
-import os
+import os, shutil
 import cv2
+from pathlib import Path
+import copy_to_all as copy_all_content_to_all_directory
 
 def extract_frames(video_path, output_folder, frame_interval=1):
     # Create output folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-    
     # Open the video file
     cap = cv2.VideoCapture(video_path)
     
@@ -24,35 +25,42 @@ def extract_frames(video_path, output_folder, frame_interval=1):
             frame_filename = f"{frame_number:04d}.jpg"
             frame_path = os.path.join(output_folder, frame_filename)
             cv2.imwrite(frame_path, frame)
-        
+            
         frame_number += 1
     
     cap.release()
-    print(f"Extracted {frame_number // frame_interval} frames from {video_path}.")
+    print(f"Extracted {frame_number // frame_interval} frames from {video_path} to {output_folder}")
 
-def process_video_directory(input_directory, frame_interval=1):
+def process_video_directory(input_directory, output_directory, frame_interval=1):
     for root, _, files in os.walk(input_directory):
+        print(root)
         for file in files:
+            if os.path.exists(file): continue
             if file.endswith(('.mp4', '.avi', '.mkv')):
                 video_path = os.path.join(root, file)
-                output_folder = os.path.splitext(video_path)[0] + "_frames"
-                extract_frames(video_path, output_folder, frame_interval)
-
+                output_name =Path(video_path).stem + "_frames"
+                extract_frames(video_path, output_directory+'/'+output_name, frame_interval)
+            
 def main(
     input_directory,
+    output_directory,
     frame_interval = 10  # Set the desired frame extraction interval)
 ):
     
-    process_video_directory(input_directory, frame_interval)
+    process_video_directory(input_directory, output_directory, frame_interval)
+    
+    target_directory = output_directory
+    copy_all_content_to_all_directory(target_directory)
 
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument('-D','--input_directory', help='folder of videos', default = "./crown-plaza")
+    ap.add_argument('-D','--input_directory', help='folder of videos', default = "./videos")
+    ap.add_argument('-O','--output_directory', help='folder of videos', default = "./frames")
     ap.add_argument('-F','--frame_interval', type=int,
                     help='Frame interval for extraction', default=150)
     args = ap.parse_args()
     
-    main(args.input_directory, args.frame_interval)
+    main(args.input_directory, args.output_directory, args.frame_interval)
 
     

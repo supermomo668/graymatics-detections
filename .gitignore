@@ -2,3 +2,7 @@
 *.avi
 *.jpg
 *.png
+*.txt
+*.tar.gz
+*.pth
+*.pt
