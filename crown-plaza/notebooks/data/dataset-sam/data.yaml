@@ -1,0 +1,6 @@
+names:
+- background
+- cart
+nc: 2
+train: /home/ubuntu/graymatics-detections-matt/crown-plaza/notebooks/data/dataset-sam/train/images
+val: /home/ubuntu/graymatics-detections-matt/crown-plaza/notebooks/data/dataset-sam/valid/images
