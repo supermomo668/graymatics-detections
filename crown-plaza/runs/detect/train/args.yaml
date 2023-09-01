@@ -1,8 +1,8 @@
 task: detect
 mode: train
-model: yolov8n.pt
+model: /home/ubuntu/graymatics-detections-matt/crown-plaza/runs/detect/train2/weights/best.pt
 data: /home/ubuntu/graymatics-detections-matt/crown-plaza/data/project-1_omni-processed/data.yaml
-epochs: 120
+epochs: 70
 patience: 50
 batch: 16
 imgsz: 640
