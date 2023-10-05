@@ -1,0 +1,14 @@
+.*
+!.gitignore
+.*data/
+data*/
+
+*.zip
+*.mp4
+*.avi
+*.jpg
+*.png
+*.txt
+*.tar.gz
+*.pth
+*.pt
