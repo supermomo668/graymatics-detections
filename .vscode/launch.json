@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: autodistill annotation",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args" : [
+        "--ontology_file", "data/agrosuper/labels.txt", 
+        "--input_image_dir", "data/agrosuper/frames",
+        "--output_dir", "data/agrosuper/frames-autoannoted"
+      ]
+    }
+  ]
+}

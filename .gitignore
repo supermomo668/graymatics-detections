@@ -1,3 +1,9 @@
+.*
+!.gitignore
+.*data/
+data*/
+
+
 *.mp4
 *.avi
 *.jpg
