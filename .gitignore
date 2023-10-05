@@ -3,7 +3,7 @@
 .*data/
 data*/
 
-
+*.zip
 *.mp4
 *.avi
 *.jpg
