@@ -1,7 +1,6 @@
 .*
 !.gitignore
-.*data/
-data*/
+# data*/
 
 *.zip
 *.mp4

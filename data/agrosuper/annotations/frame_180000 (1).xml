@@ -1,0 +1,38 @@
+<annotation>
+	<folder>video1_frames</folder>
+	<filename>frame_180000 (1).jpg</filename>
+	<path>/home/flow/Documents/graymatics/annotations_v2_agrosuper/video1_frames/frame_180000 (1).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>helmet</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>143</ymin>
+			<xmax>88</xmax>
+			<ymax>266</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>meat</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1800</xmin>
+			<ymin>812</ymin>
+			<xmax>1920</xmax>
+			<ymax>935</ymax>
+		</bndbox>
+	</object>
+</annotation>
