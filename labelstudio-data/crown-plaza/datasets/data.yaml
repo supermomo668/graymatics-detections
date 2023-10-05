@@ -1,5 +1,0 @@
-names:
-- cart
-nc: 1
-train: /home/ubuntu/graymatics-detections-matt/labelstudio-data/crown-plaza/datasets/train/images
-val: /home/ubuntu/graymatics-detections-matt/labelstudio-data/crown-plaza/datasets/valid/images
