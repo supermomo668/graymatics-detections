@@ -1,3 +1,0 @@
-[submodule "yolo_tracking"]
-	path = yolo_tracking
-	url = git@github.com:supermomo668/yolo_tracking.git
