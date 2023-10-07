@@ -22,12 +22,15 @@ DEFAULT_TRAINED_MODEL_PATH = f"{HOME}/runs/detect/{DEFAULT_RUN}/weights/best.pt"
 def main(args):
   if args.chkpt_path is None:
     target_model = YOLOv8("yolov8n.pt")
-    target_model.train(args.data_yaml_file, epochs=70)
+  target_model.train(args.data_yaml_file, epochs=args.epochs)
   print("Finetune completed")
 
 if __name__=="__main__":
   import argparse
   ap = argparse.ArgumentParser()
+  ap.add_argument(
+    '--epochs', type=int, default=100
+  )
   ap.add_argument(
     '--chkpt_path', 
     default=f"{HOME}/runs/detect/1/weights/best.pt"
