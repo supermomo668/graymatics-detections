@@ -1,0 +1,7 @@
+names:
+- meat
+- helmet
+nc: 2
+path: data/agrosuper/splitted-dataset
+train: train/images
+val: valid/images

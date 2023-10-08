@@ -1,15 +1,27 @@
-import glob
-import os
-import pickle
+"""
+Convert VOC(.xml) labels to YOLO(.txt) 
+Usage:
+  Require dataset to be in YOLO structure but annotations are in .xml. 
+  train
+    images
+    labels-voc
+    (labels) <- to be created
+  val 
+    ...
+"""
+import glob, yaml
+from pathlib import Path
 import xml.etree.ElementTree as ET
-from os import listdir, getcwd
-from os.path import join
+
+from sqlalchemy import exists
 
 DEFAULT_SPLIT_DIRS = ['train', 'val']
 DEFAULT_CLASSES = ['0', '1']
+# hardcoded , must use this name
+DEFAULT_VOC_LABEL_DIRNAME="labels-voc"
 
-cwd = getcwd()
-DEFAULT_DATASET_PARENT_PATH = cwd / "dataset"
+HOME = Path.cwd()
+DEFAULT_DATASET_PARENT_PATH = HOME / "dataset"
 
 def getImagesInDir(dir_path):
     image_list = []
@@ -31,53 +43,50 @@ def convert(size, box):
     h = h*dh
     return (x,y,w,h)
 
-def convert_annotation(dir_path, output_path, image_path, classes:list):
-    basename = os.path.basename(image_path)
-    basename_no_ext = os.path.splitext(basename)[0]
-
-    in_file = open(dir_path + '/' + basename_no_ext + '.xml')
-    out_file = open(output_path + basename_no_ext + '.txt', 'w')
+def convert_annotation(source_voc_path, output_path, classes:list):
+    in_file, out_file = open(source_voc_path), open(output_path/(source_voc_path.stem + '.txt'), 'w')
     tree = ET.parse(in_file)
     root = tree.getroot()
     size = root.find('size')
-    w = int(size.find('width').text)
-    h = int(size.find('height').text)
+    w, h = int(size.find('width').text), int(size.find('height').text)
 
     for obj in root.iter('object'):
-        difficult = obj.find('difficult').text
-        cls = obj.find('name').text
-        if cls not in classes or int(difficult)==1:
-            continue
-        cls_id = classes.index(cls)
-        xmlbox = obj.find('bndbox')
-        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
-        bb = convert((w,h), b)
-        out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
+      difficult = obj.find('difficult').text
+      cls = obj.find('name').text
+      # if cls not in classes or int(difficult)==1:
+      #   print(f"Skipping as class {cls} not in {classes}. To avoid this, comment this block out")
+      #   continue
+      cls_id = classes.index(cls)
+      xmlbox = obj.find('bndbox')
+      b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
+      bb = convert((w,h), b)
+      out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
 
+def get_cls_labels(dataset_path):
+  with open(dataset_path/'data.yaml') as f:
+    conf = yaml.safe_load(f)
+  return conf.get('names')
 
 
 def main(args):
     """
     args:
-        dirs
-        classes
+      dataset_path
+      dirs
+      classes
     """
-    for dir_path in args.dirs:
-      full_dir_path = cwd + '/' + dir_path
-      output_path = full_dir_path +'/yolo/'
+    cls_labels = get_cls_labels(args.dataset_path)
+    print("")
+    for split in args.splits:
+      full_dir_path = args.dataset_path/split
+      output_path = full_dir_path/args.output_label_dir
 
-      if not os.path.exists(output_path):
-          os.makedirs(output_path)
+      output_path.mkdir(exist_ok=True, parents=True)
       
-      # image_paths = getImagesInDir(full_dir_path)
-      list_file = open(full_dir_path + '.txt', 'w')
+      for cts, voc_label_file in enumerate((full_dir_path/args.source_label_dir).iterdir()):
+        convert_annotation(voc_label_file, output_path, classes=cls_labels)
 
-      for image_path in image_paths:
-        list_file.write(image_path + '\n')
-        convert_annotation(full_dir_path, output_path, image_path, classes=args.classes)
-      list_file.close()
-
-      print("Finished processing: " + dir_path)
+      print(f"Finished processing:{split}. Converted {cts} files.")
 
 if __name__=="__main__":
   import argparse
@@ -86,13 +95,18 @@ if __name__=="__main__":
   ap.add_argument(
     '-D', '--dataset_path', type=Path,
     default = DEFAULT_DATASET_PARENT_PATH
+  )  
+  ap.add_argument(
+    '-S','--splits', nargs='+', 
+    default=DEFAULT_SPLIT_DIRS
+  )
+
+  ap.add_argument(
+    '--source_label_dir', type=str, help="",
+    default = DEFAULT_VOC_LABEL_DIRNAME
   )
   ap.add_argument(
-    '--label_dir_name', type=str, help="",
-    default = 'labels-voc'
-  )
-  ap.add_argument(
-    '--output_label_dir_name', type=str, help="",
+    '--output_label_dir', type=str, help="",
     default = 'labels'
   )
   args = ap.parse_args()

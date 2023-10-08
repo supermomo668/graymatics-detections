@@ -1,8 +1,12 @@
 .*
 !.gitignore
 .*data/
-**/data/
-**/data
+**/data*/
+# But don't ignore .py or .sh files anywhere
+!.gitignore
+!**/
+!**/*.py
+!**/*.sh
 
 *.zip
 *.mp4

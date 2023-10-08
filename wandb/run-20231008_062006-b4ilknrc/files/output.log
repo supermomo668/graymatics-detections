@@ -1,0 +1,104 @@
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mAMP: [39m[22mrunning Automatic Mixed Precision (AMP) checks with YOLOv8n...
+[34m[1mAMP: [39m[22mchecks passed ✅
+[34m[1mtrain: [39m[22mScanning /home/ubuntu/vision-matt/yolo-detections-matt/data/agrosuper/splitted-dataset/train/labels... 509 images
+[34m[1mtrain: [39m[22mNew cache created: /home/ubuntu/vision-matt/yolo-detections-matt/data/agrosuper/splitted-dataset/train/labels.cache
+[34m[1mval: [39m[22mScanning /home/ubuntu/vision-matt/yolo-detections-matt/data/agrosuper/splitted-dataset/valid/labels... 114 images,
+[34m[1mval: [39m[22mNew cache created: /home/ubuntu/vision-matt/yolo-detections-matt/data/agrosuper/splitted-dataset/valid/labels.cache
+Plotting labels to runs/detect/splitted-dataset-yolov8/labels.jpg...
+[34m[1moptimizer:[39m[22m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+[34m[1moptimizer:[39m[22m AdamW(lr=0.001667, momentum=0.9) with parameter groups 97 weight(decay=0.0), 104 weight(decay=0.000375), 103 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 8 dataloader workers
+Logging results to [1mruns/detect/splitted-dataset-yolov8
+Starting training for 120 epochs...
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0%|          | 0/11 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/ubuntu/vision-matt/yolo-detections-matt/main_v8.py", line 73, in <module>
+    main(args)
+  File "/home/ubuntu/vision-matt/yolo-detections-matt/main_v8.py", line 42, in main
+    train_results = target_model.train(
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/model.py", line 347, in train
+    self.trainer.train()
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/trainer.py", line 195, in train
+    self._do_train(world_size)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/trainer.py", line 348, in _do_train
+    self.loss, self.loss_items = self.model(batch)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 44, in forward
+    return self.loss(x, *args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 214, in loss
+    preds = self.forward(batch['img']) if preds is None else preds
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 45, in forward
+    return self.predict(x, *args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 62, in predict
+    return self._predict_once(x, profile, visualize)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 82, in _predict_once
+    x = m(x)  # run
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 181, in forward
+    y.extend(m(y[-1]) for m in self.m)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 181, in <genexpr>
+    y.extend(m(y[-1]) for m in self.m)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 283, in forward
+    return x + self.cv2(self.cv1(x)) if self.add else self.cv2(self.cv1(x))
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/conv.py", line 38, in forward
+    return self.act(self.bn(self.conv(x)))
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 463, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 459, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 150.00 MiB (GPU 0; 14.62 GiB total capacity; 4.35 GiB already allocated; 7.44 MiB free; 4.50 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Traceback (most recent call last):
+  File "/home/ubuntu/vision-matt/yolo-detections-matt/main_v8.py", line 73, in <module>
+    main(args)
+  File "/home/ubuntu/vision-matt/yolo-detections-matt/main_v8.py", line 42, in main
+    train_results = target_model.train(
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/model.py", line 347, in train
+    self.trainer.train()
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/trainer.py", line 195, in train
+    self._do_train(world_size)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/engine/trainer.py", line 348, in _do_train
+    self.loss, self.loss_items = self.model(batch)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 44, in forward
+    return self.loss(x, *args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 214, in loss
+    preds = self.forward(batch['img']) if preds is None else preds
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 45, in forward
+    return self.predict(x, *args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 62, in predict
+    return self._predict_once(x, profile, visualize)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/tasks.py", line 82, in _predict_once
+    x = m(x)  # run
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 181, in forward
+    y.extend(m(y[-1]) for m in self.m)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 181, in <genexpr>
+    y.extend(m(y[-1]) for m in self.m)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/block.py", line 283, in forward
+    return x + self.cv2(self.cv1(x)) if self.add else self.cv2(self.cv1(x))
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/ultralytics/nn/modules/conv.py", line 38, in forward
+    return self.act(self.bn(self.conv(x)))
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 463, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/ubuntu/anaconda3/envs/vision-cap/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 459, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 150.00 MiB (GPU 0; 14.62 GiB total capacity; 4.35 GiB already allocated; 7.44 MiB free; 4.50 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
