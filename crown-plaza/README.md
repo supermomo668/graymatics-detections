@@ -37,8 +37,17 @@ run inference directly on target
 run_name="train"
 INPUT_VIDEO_PATH = f"{DATA_HOME}/video-processed/"
 TRAINED_MODEL_PATH = f"{HOME}/runs/detect/{run_name}/weights/best.pt"
-yolo predict model="{TRAINED_MODEL_PATH}" source="{INPUT_VIDEO_PATH}" conf=0.8
+!yolo predict model="{TRAINED_MODEL_PATH}" source="{INPUT_VIDEO_PATH}" conf=0.8
+```
+which is equivalent as running in bash
+```bash
+yolo predict model=$PROJECT/crown-plaza/runs/detect/train/weights/best.py
 ```
 
-## Example
+## Example Workflow
 1. You may first extract frames from directory of videos
+```
+
+```
+
+2.
