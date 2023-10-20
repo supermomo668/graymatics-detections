@@ -17,7 +17,6 @@ torch.cuda.empty_cache()
 DEFAULT_DATASET_YAML = f"{HOME}/data.yaml"
 DEFAULT_EPOCHS = 100
 DEFAULT_RUN = 1
-DEFAULT_TRAINED_MODEL_PATH = f"{HOME}/runs/detect/{DEFAULT_RUN}/weights/best.pt"
 DEFAULT_MODEL = "yolov8l.pt"
 
 def load_dataset(yaml_path):

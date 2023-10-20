@@ -11,6 +11,8 @@
   ```
   bash labelstudio.sh
   ```
+- model artifact (inference)
+  use ```git lfs pull``` to get the model. 
 
 ## Instructions
 * Usage: Frame Extractor
@@ -44,10 +46,11 @@ which is equivalent as running in bash
 yolo predict model=$PROJECT/crown-plaza/runs/detect/train/weights/best.py
 ```
 
-## Example Workflow
-1. You may first extract frames from directory of videos
+## Example Training Workflow
+1. You may first extract frames from directory of videos via 
+```
+extract_frames.py -D ${video_direcory} -O "{output_directory}"
 ```
 
-```
-
-2.
+2. Proceed to annotation in labelimg or label-studio
+3. Train on dataset via [the training notebook](notebooks/run_train.ipynb) and follow the instructions within
